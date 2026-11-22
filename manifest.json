@@ -1,0 +1,18 @@
+{
+  "name": "OREV — Rose Titanium",
+  "short_name": "OREV",
+  "description": "Laboratoire pédagogique de probabilités",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#17131b",
+  "theme_color": "#19151d",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

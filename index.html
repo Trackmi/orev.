@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#19151d">
+<meta name="description" content="OREV — laboratoire pédagogique de probabilités de la roulette européenne.">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="OREV">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>OREV — Rose Titanium</title>
+<style>
+:root{color-scheme:dark;--bg:#17131b;--panel:#231d28;--panel2:#2e2532;--line:#493b4b;--text:#f7eff5;--muted:#b9aab8;--pink:#e7a2c3;--pink2:#bd789d;--red:#a84c68;--black:#35313a;--green:#397b68;--shadow:0 16px 45px #0005}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% -15%,#493246 0,#211a25 38%,var(--bg) 75%);color:var(--text);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input{font:inherit}
+button{touch-action:manipulation}
+a{color:var(--pink)}
+.shell{max-width:1050px;margin:auto;padding:0 16px 40px}
+header{padding:26px 0 18px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:12px}.logo{width:48px;height:48px;border-radius:15px;background:linear-gradient(145deg,#f8d8e8,#b66d93);display:grid;place-items:center;color:#281b25;font-size:25px;font-weight:950;box-shadow:0 8px 24px #d68eb333}
+h1{font-size:25px;line-height:1;margin:0;letter-spacing:.13em}.tagline{color:var(--muted);font-size:12px;margin-top:6px;letter-spacing:.08em}
+.header-chip{border:1px solid #77566d;background:#352838;color:#f0cfe0;padding:7px 11px;border-radius:999px;font-size:11px;white-space:nowrap}
+nav{position:sticky;top:0;z-index:20;display:flex;gap:7px;overflow-x:auto;padding:10px 0 13px;background:#17131beF;backdrop-filter:blur(16px);scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{flex:0 0 auto;border:1px solid var(--line);border-radius:12px;background:#241e28;color:var(--muted);padding:10px 13px;font-weight:700;font-size:13px;cursor:pointer}
+nav button[aria-selected="true"]{background:linear-gradient(135deg,#74475f,#513548);border-color:#bd86a5;color:white;box-shadow:0 5px 16px #0003}
+main{min-height:60vh}
+.page{display:none;animation:fade .18s ease}.page.active{display:block}
+@keyframes fade{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}
+.hero{padding:23px;border:1px solid #674d60;border-radius:22px;background:linear-gradient(135deg,#3a2a3a,#241e29 72%);box-shadow:var(--shadow);margin:6px 0 14px}
+.eyebrow{color:var(--pink);font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:800}
+.hero h2{font-size:clamp(23px,5vw,34px);line-height:1.12;margin:8px 0}.hero p{max-width:690px;color:#d0c1ce;margin:0}
+.panel{background:linear-gradient(160deg,#29222e,#211b25);border:1px solid var(--line);border-radius:18px;padding:17px;margin:0 0 13px;box-shadow:0 9px 28px #0002}
+.panel h2{font-size:17px;margin:0 0 6px}.panel p,.muted{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stat{padding:14px;border:1px solid var(--line);background:var(--panel2);border-radius:14px;min-width:0}
+.stat small{display:block;color:var(--muted);font-size:11px;letter-spacing:.03em}
+.stat strong{display:block;font-size:clamp(19px,4vw,25px);font-variant-numeric:tabular-nums;margin-top:4px;overflow-wrap:anywhere}
+.stat .substat{font-size:11px;color:var(--muted);margin-top:3px}
+button.primary,button.secondary,.tab-action{border:0;border-radius:12px;padding:12px 15px;font-weight:800;cursor:pointer}
+button.primary{background:linear-gradient(135deg,#f2c4da,#d68eb3);color:#291b25}
+button.secondary,.tab-action{background:#3a2e3c;color:var(--text);border:1px solid #5c495d}
+button:focus-visible,input:focus-visible{outline:3px solid #f4c4dc;outline-offset:2px}
+button:disabled{opacity:.45;cursor:not-allowed}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}.actions button{flex:1;min-width:125px}
+label{display:block;font-size:12px;color:var(--muted);margin:12px 0 6px}
+input,select{width:100%;border:1px solid #604d61;background:#19151d;color:var(--text);border-radius:11px;padding:12px;font-size:16px;min-height:46px}
+.result{background:#19151d;border:1px solid var(--line);border-radius:13px;padding:13px;margin-top:12px;line-height:1.6}
+.notice{border-left:3px solid var(--pink2);background:#392b39;color:#ead8e4;border-radius:8px;padding:11px 13px;margin-top:12px;font-size:12px;line-height:1.55}
+.bar{height:9px;background:#463a49;border-radius:99px;overflow:hidden;margin-top:8px}.bar span{display:block;height:100%;background:linear-gradient(90deg,#b66e95,#f0b9d3);border-radius:99px}
+.chart-row{display:grid;grid-template-columns:60px 1fr 65px;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid #443846;font-size:12px}
+.chart-row:last-child{border:0}.chart-row .track{height:8px;background:#403541;border-radius:99px;overflow:hidden}.chart-row .track span{display:block;height:100%;background:linear-gradient(90deg,#b66e95,#f0b9d3)}
+.chart-row .val{text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
+.pocket{display:inline-grid;place-items:center;min-width:34px;height:34px;padding:0 5px;border-radius:50%;font-size:12px;font-weight:850;color:white}
+.pocket.red{background:var(--red)}.pocket.black{background:var(--black);border:1px solid #625a66}.pocket.green{background:var(--green)}
+.wheel-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(230px,.8fr);gap:16px;align-items:center}
+.wheel-wrap{width:min(82vw,370px);aspect-ratio:1;margin:5px auto;position:relative;border-radius:50%;border:8px solid #96718a;background:radial-gradient(circle,#2b2430 0 27%,#78556e 27.5% 29%,#332936 29.5% 100%);box-shadow:inset 0 0 0 5px #211b25,0 12px 30px #0005}
+.wheel{position:absolute;inset:0}
+.wheel-number{position:absolute;width:29px;height:29px;border:1px solid #ffffff55;border-radius:50%;color:white;font-weight:800;font-size:11px;display:grid;place-items:center;transform:translate(-50%,-50%);padding:0;cursor:pointer}
+.wheel-number.red{background:var(--red)}.wheel-number.black{background:var(--black)}.wheel-number.green{background:var(--green)}
+.wheel-number.selected{outline:3px solid #ffe4f0;box-shadow:0 0 0 5px #e7a2c355;z-index:2}
+.wheel-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:82px;height:82px;border-radius:50%;background:linear-gradient(145deg,#63465c,#29212d);border:2px solid #b783a1;display:grid;place-content:center;text-align:center;font-weight:950;letter-spacing:.1em;font-size:14px;pointer-events:none}
+.wheel-center small{font-size:9px;color:#e6c6d8;letter-spacing:0;font-weight:500}
+.number-list{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+.history-list{display:flex;flex-wrap:wrap;gap:5px;margin-top:12px}
+.history-item{display:flex;align-items:center;gap:7px;background:#302735;border:1px solid #514052;border-radius:999px;padding:4px 8px 4px 4px;font-size:12px}
+.history-item button{border:0;background:transparent;color:#d7bdce;padding:2px 4px;cursor:pointer}
+.empty{color:var(--muted);text-align:center;padding:22px 10px}
+footer{text-align:center;color:#938393;font-size:11px;padding:24px 8px}
+.small{font-size:12px}.right{text-align:right}
+@media(max-width:680px){.shell{padding-left:12px;padding-right:12px}header{padding-top:20px}.header-chip{display:none}.wheel-layout{grid-template-columns:1fr}.wheel-wrap{width:min(84vw,350px)}.grid.three{grid-template-columns:1fr 1fr}.hero{padding:19px}.panel{padding:15px}}
+@media(min-width:681px){.hero{padding:30px}.wheel-layout{padding:5px 0}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header>
+ <div class="brand"><div class="logo">O</div><div><h1>OREV</h1><div class="tagline">ROSE TITANIUM · PROBABILITY LAB</div></div></div>
+ <div class="header-chip">ROULETTE EUROPÉENNE · 37 ISSUES</div>
+</header>
+<nav id="navigation" aria-label="Navigation principale">
+ <button type="button" data-page="home" aria-selected="true">Accueil</button>
+ <button type="button" data-page="wheel" aria-selected="false">Roue 37</button>
+ <button type="button" data-page="stats" aria-selected="false">Statistiques</button>
+ <button type="button" data-page="sim" aria-selected="false">Simulations</button>
+ <button type="button" data-page="history" aria-selected="false">Historique</button>
+ <button type="button" data-page="math" aria-selected="false">Probabilités</button>
+ <button type="button" data-page="about" aria-selected="false">À propos</button>
+</nav>
+<main>
+<section class="page active" id="home" aria-labelledby="home-title">
+ <div class="hero"><div class="eyebrow">Laboratoire de probabilités</div><h2 id="home-title">Observer. Comprendre. Mesurer.</h2><p>Explore les 37 issues de la roulette européenne, compare les fréquences observées aux probabilités théoriques et réalise tes propres expériences statistiques.</p></div>
+ <div class="grid three">
+  <div class="stat"><small>Issues possibles</small><strong>37</strong><div class="substat">0 à 36</div></div>
+  <div class="stat"><small>Rouges / noires</small><strong>18 / 18</strong><div class="substat">+ un zéro vert</div></div>
+  <div class="stat"><small>Probabilité d'un numéro</small><strong>2,70 %</strong><div class="substat">1 chance sur 37</div></div>
+ </div>
+ <div class="panel" style="margin-top:13px"><h2>Ton carnet d'observation</h2><p>Les chiffres ci-dessous proviennent uniquement des résultats que tu as saisis.</p>
+  <div class="grid" style="margin-top:12px">
+   <div class="stat"><small>Résultats enregistrés</small><strong id="homeTotal">0</strong></div>
+   <div class="stat"><small>Numéros différents vus</small><strong id="homeDistinct">0 / 37</strong></div>
+  </div>
+  <div class="actions"><button class="primary" data-go="history">Ajouter des résultats</button><button class="secondary" data-go="stats">Voir les statistiques</button></div>
+ </div>
+ <div class="panel"><h2>Une règle fondamentale</h2><p>Chaque tour est indépendant. Les résultats précédents ne modifient pas la probabilité du prochain tirage : un numéro reste à 1/37 à chaque tour.</p><div class="notice">OREV est un outil pédagogique d'observation et de simulation. Il ne prédit pas les résultats et ne propose pas de stratégie de mise ou de gain.</div></div>
+</section>
+
+<section class="page" id="wheel" aria-labelledby="wheel-title">
+ <div class="panel"><h2 id="wheel-title">Roue européenne interactive</h2><p>Touche une case pour afficher ses observations dans ton historique. La roue respecte l'ordre européen standard.</p>
+  <div class="wheel-layout">
+   <div class="wheel-wrap"><div class="wheel" id="wheel" aria-label="Roue européenne, sélectionne un numéro"></div><div class="wheel-center">OREV<small>37 NUMÉROS</small></div></div>
+   <div><div class="stat"><small>Numéro sélectionné</small><strong id="selectedNumber">0 · Zéro</strong><div class="substat" id="selectedColor">Vert</div></div>
+    <div class="result" id="selectedStats">Aucun résultat enregistré pour le moment.</div>
+    <div class="notice">La fréquence passée est descriptive. Elle ne rend pas un numéro plus ou moins probable au prochain tour.</div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="page" id="stats" aria-labelledby="stats-title">
+ <div class="panel"><h2 id="stats-title">Statistiques de ton historique</h2><p>Les indicateurs se mettent à jour à chaque ajout ou suppression.</p>
+  <div class="grid" style="margin-top:12px">
+   <div class="stat"><small>Total des résultats</small><strong id="statTotal">0</strong></div>
+   <div class="stat"><small>Numéros distincts</small><strong id="statDistinct">0 / 37</strong></div>
+   <div class="stat"><small>Rouges</small><strong id="statRed">0</strong></div>
+   <div class="stat"><small>Noirs</small><strong id="statBlack">0</strong></div>
+   <div class="stat"><small>Zéros</small><strong id="statZero">0</strong></div>
+   <div class="stat"><small>Numéro le plus fréquent</small><strong id="statTop">—</strong></div>
+  </div>
+  <div class="result" id="statSummary">Ajoute des résultats dans Historique pour commencer.</div>
+ </div>
+ <div class="panel"><h2>Fréquence observée par numéro</h2><p class="small">La barre la plus longue correspond au numéro le plus souvent observé dans ton échantillon.</p><div id="frequencyChart"></div></div>
+ <div class="panel"><h2>Répartition des couleurs</h2><div id="colorChart"></div><div class="notice">Sur un grand nombre de tirages, les fréquences observées tendent à se rapprocher des probabilités théoriques, sans être obligées de les égaler.</div></div>
+</section>
+
+<section class="page" id="sim" aria-labelledby="sim-title">
+ <div class="panel"><h2 id="sim-title">Simulateur de tirages</h2><p>Génère un échantillon aléatoire indépendant pour observer les fluctuations statistiques.</p>
+  <label for="sampleSize">Taille de l'expérience</label>
+  <select id="sampleSize"><option value="1000">1 000 tirages</option><option value="10000" selected>10 000 tirages</option><option value="100000">100 000 tirages</option><option value="1000000">1 000 000 tirages</option></select>
+  <div class="actions"><button class="primary" id="runSimulation">Lancer la simulation</button><button class="secondary" id="clearSimulation">Effacer</button></div>
+  <div class="grid" style="margin-top:13px">
+   <div class="stat"><small>Tirages simulés</small><strong id="simTotal">0</strong></div>
+   <div class="stat"><small>Numéro le plus fréquent</small><strong id="simTop">—</strong></div>
+  </div>
+  <div class="result" id="simSummary">Aucune simulation effectuée.</div>
+ </div>
+ <div class="panel"><h2>Répartition simulée</h2><div id="simColorChart"></div></div>
+ <div class="panel"><h2>Fréquences des numéros simulés</h2><div id="simNumberChart"></div></div>
+ <div class="notice">La simulation est réalisée localement sur cet appareil. Elle ne reproduit pas un casino réel et ne prédit aucun résultat futur.</div>
+</section>
+
+<section class="page" id="history" aria-labelledby="history-title">
+ <div class="panel"><h2 id="history-title">Historique des observations</h2><p>Saisis les numéros observés un par un. Ils seront conservés sur cet appareil.</p>
+  <label for="manualNumber">Numéro observé (0 à 36)</label>
+  <div class="grid"><input id="manualNumber" type="number" inputmode="numeric" min="0" max="36" placeholder="Ex. 17"><button class="primary" id="addNumber">Ajouter le résultat</button></div>
+  <div class="result" id="historyMessage" role="status">Aucun résultat ajouté pour le moment.</div>
+  <div class="actions"><button class="secondary" id="exportData">Exporter mes données</button><button class="secondary" id="importButton">Importer une sauvegarde</button><button class="secondary" id="clearHistory">Effacer l'historique</button></div>
+  <input type="file" id="importFile" accept="application/json,.json" hidden>
+ </div>
+ <div class="panel"><h2>Derniers résultats</h2><p class="small">Les 100 derniers résultats sont affichés ici ; l'historique complet reste conservé.</p><div id="historyList" class="history-list"><div class="empty">Aucun résultat pour l'instant.</div></div></div>
+</section>
+
+<section class="page" id="math" aria-labelledby="math-title">
+ <div class="panel"><h2 id="math-title">Calculateur de probabilités</h2><p>Choisis un événement pour connaître sa probabilité théorique sur une roulette européenne à 37 cases.</p>
+  <label for="eventSelect">Événement</label><select id="eventSelect">
+   <option value="1">Un numéro précis</option><option value="18">Rouge</option><option value="18">Noir</option><option value="18">Pair (hors zéro)</option><option value="18">Impair (hors zéro)</option><option value="12">Une douzaine</option><option value="12">Une colonne</option><option value="6">Six numéros précis</option>
+  </select>
+  <div class="result" id="probabilityResult">1 chance sur 37, soit 2,70 %.</div>
+ </div>
+ <div class="panel"><h2>Repères théoriques</h2>
+  <div class="chart-row"><span>Un numéro</span><div class="track"><span style="width:2.70%"></span></div><span class="val">2,70 %</span></div>
+  <div class="chart-row"><span>Rouge</span><div class="track"><span style="width:48.65%"></span></div><span class="val">48,65 %</span></div>
+  <div class="chart-row"><span>Noir</span><div class="track"><span style="width:48.65%"></span></div><span class="val">48,65 %</span></div>
+  <div class="chart-row"><span>Zéro</span><div class="track"><span style="width:2.70%"></span></div><span class="val">2,70 %</span></div>
+  <div class="notice">Les événements « pair » et « impair » ne couvrent chacun que 18 cases : le zéro n'est ni pair ni impair dans les règles de roulette.</div>
+ </div>
+</section>
+
+<section class="page" id="about" aria-labelledby="about-title">
+ <div class="hero"><div class="eyebrow">OREV · Rose Titanium</div><h2 id="about-title">La statistique, sans illusion.</h2><p>Une interface conçue pour explorer les probabilités, comprendre l'aléatoire et distinguer fréquence observée et probabilité théorique.</p></div>
+ <div class="panel"><h2>Indépendance des tirages</h2><p>Dans le modèle d'une roulette européenne équitable, chaque tour est indépendant. Une longue série de rouges ne rend pas le noir « dû », et un numéro absent de l'historique ne devient pas plus probable.</p></div>
+ <div class="panel"><h2>Avantage mathématique</h2><p>La présence d'un seul zéro sur 37 cases crée un écart entre les paiements standards et les probabilités. Sur les événements simples comme rouge/noir, cet avantage théorique est de 2,70 % pour l'organisateur.</p></div>
+ <div class="panel"><h2>Confidentialité</h2><p>OREV ne nécessite aucun compte. Les observations sont enregistrées dans le stockage local du navigateur. Utilise « Exporter mes données » pour conserver une copie.</p></div>
+ <div class="notice">OREV est une expérience éducative de mathématiques et de statistiques. Aucun pari, argent réel, capital de jeu ou conseil de stratégie n'est intégré.</div>
+</section>
+</main>
+<footer>OREV · VERSION 2.0 · ROSE TITANIUM<br>Un laboratoire pédagogique — pas un outil de prédiction.</footer>
+</div>
+<script>
+'use strict';
+const $=id=>document.getElementById(id);
+const redSet=new Set([1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36]);
+const order=[0,32,15,19,4,21,2,25,17,34,6,27,13,36,11,30,8,23,10,5,24,16,33,1,20,14,31,9,22,18,29,7,28,12,35,3,26];
+const color=n=>n===0?'green':redSet.has(n)?'red':'black';
+const colorName=n=>color(n)==='green'?'Vert':color(n)==='red'?'Rouge':'Noir';
+const fmt=n=>Number(n).toLocaleString('fr-FR');
+const pct=(n,d)=>d?((n/d)*100).toFixed(2).replace('.',',')+' %':'0,00 %';
+let history=[];
+let simCounts=null;
+let selected=0;
+const STORAGE_KEY='orev_v2_history';
+function safeLoad(){
+ try{const raw=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');if(Array.isArray(raw))history=raw.filter(n=>Number.isInteger(n)&&n>=0&&n<=36).slice(-100000);}
+ catch(e){history=[];}
+}
+function persist(){
+ try{localStorage.setItem(STORAGE_KEY,JSON.stringify(history));return true;}
+ catch(e){$('historyMessage').textContent='Stockage local indisponible ou saturé. Exporte tes données pour les conserver.';return false;}
+}
+function showPage(id){
+ const page=$(id);if(!page||!page.classList.contains('page'))return;
+ document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id===id));
+ document.querySelectorAll('#navigation button').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.page===id)));
+ if(id==='wheel')requestAnimationFrame(renderWheel);
+ if(id==='stats')renderStats();
+ if(id==='history')renderHistory();
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+$('navigation').addEventListener('click',e=>{
+ const b=e.target.closest('button[data-page]');if(b)showPage(b.dataset.page);
+});
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.go)));
+
+function countsFrom(arr){const c=Array(37).fill(0);for(const n of arr)c[n]++;return c;}
+function colorCounts(c){return [c.reduce((s,v,i)=>s+(redSet.has(i)?v:0),0),c.reduce((s,v,i)=>s+(i!==0&&!redSet.has(i)?v:0),0),c[0]];}
+function chartRows(container,labels,values,total){
+ const max=Math.max(1,...values);
+ $(container).innerHTML=labels.map((label,i)=>`<div class="chart-row"><span>${label}</span><div class="track"><span style="width:${values[i]?Math.max(1,values[i]/max*100):0}%"></span></div><span class="val">${fmt(values[i])} · ${pct(values[i],total)}</span></div>`).join('');
+}
+function summaryText(arr){
+ if(!arr.length)return 'Aucun résultat enregistré.';
+ const c=countsFrom(arr),cc=colorCounts(c);
+ return `Rouges : ${fmt(cc[0])} (${pct(cc[0],arr.length)}) · Noirs : ${fmt(cc[1])} (${pct(cc[1],arr.length)}) · Zéros : ${fmt(cc[2])} (${pct(cc[2],arr.length)}).`;
+}
+function renderHome(){
+ $('homeTotal').textContent=fmt(history.length);
+ $('homeDistinct').textContent=`${history.length?countsFrom(history).filter(x=>x>0).length:0} / 37`;
+}
+function renderWheel(){
+ const el=$('wheel');if(!el||el.clientWidth===0)return;
+ const radius=Math.min(el.clientWidth,el.clientHeight)*.405;
+ el.innerHTML=order.map((n,i)=>{
+  const a=(-90+i*360/37)*Math.PI/180;
+  const x=el.clientWidth/2+Math.cos(a)*radius;
+  const y=el.clientHeight/2+Math.sin(a)*radius;
+  return `<button type="button" class="wheel-number ${color(n)} ${n===selected?'selected':''}" data-num="${n}" style="left:${x}px;top:${y}px" aria-label="Sélectionner le numéro ${n}" aria-pressed="${n===selected}">${n}</button>`;
+ }).join('');
+ el.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{selected=Number(b.dataset.num);renderWheel();}));
+ renderSelected();
+}
+function renderSelected(){
+ const c=countsFrom(history),n=selected,total=history.length;
+ $('selectedNumber').textContent=`${n} · ${n===0?'Zéro':n}`;
+ $('selectedColor').textContent=colorName(n);
+ $('selectedStats').innerHTML=`Observé <b>${fmt(c[n])}</b> fois sur ${fmt(total)} résultat(s), soit <b>${pct(c[n],total)}</b>.<br>Probabilité théorique à chaque tour : <b>1/37 (2,70 %)</b>.`;
+}
+function renderStats(){
+ const c=countsFrom(history),cc=colorCounts(c),total=history.length;
+ const max=Math.max(0,...c),top=max?c.indexOf(max):null;
+ $('statTotal').textContent=fmt(total);
+ $('statDistinct').textContent=`${c.filter(x=>x>0).length} / 37`;
+ $('statRed').textContent=fmt(cc[0]);$('statBlack').textContent=fmt(cc[1]);$('statZero').textContent=fmt(cc[2]);
+ $('statTop').textContent=top===null?'—':`${top} (${fmt(max)})`;
+ $('statSummary').textContent=summaryText(history);
+ chartRows('frequencyChart',Array.from({length:37},(_,i)=>String(i)),c,total);
+ chartRows('colorChart',['Rouge','Noir','Zéro'],cc,total);
+}
+function renderHistory(){
+ const host=$('historyList');
+ if(!history.length){host.innerHTML='<div class="empty">Aucun résultat pour l’instant.</div>';return;}
+ host.innerHTML=history.slice(-100).reverse().map((n,i)=>`<span class="history-item"><span class="pocket ${color(n)}">${n}</span><button type="button" data-remove="${history.length-1-i}" aria-label="Supprimer le résultat ${n}">×</button></span>`).join('');
+ host.querySelectorAll('[data-remove]').forEach(b=>b.addEventListener('click',()=>{
+  history.splice(Number(b.dataset.remove),1);persist();refreshAll();
+ }));
+}
+function refreshAll(){
+ renderHome();renderHistory();
+ if($('stats').classList.contains('active'))renderStats();
+ if($('wheel').classList.contains('active'))renderWheel();else renderSelected();
+}
+$('addNumber').addEventListener('click',()=>{
+ const field=$('manualNumber'),raw=field.value,n=Number(raw);
+ if(raw===''||!Number.isInteger(n)||n<0||n>36){$('historyMessage').textContent='Entre un nombre entier compris entre 0 et 36.';field.focus();return;}
+ history.push(n);persist();field.value='';$('historyMessage').textContent=`Résultat ${n} ajouté à ton historique.`;refreshAll();
+});
+$('manualNumber').addEventListener('keydown',e=>{if(e.key==='Enter')$('addNumber').click();});
+$('clearHistory').addEventListener('click',()=>{
+ if(!history.length)return;
+ if(!confirm('Effacer tout l’historique enregistré sur cet appareil ?'))return;
+ history=[];persist();$('historyMessage').textContent='Historique effacé.';refreshAll();
+});
+$('exportData').addEventListener('click',()=>{
+ const blob=new Blob([JSON.stringify({app:'OREV',version:2,exportedAt:new Date().toISOString(),history},null,2)],{type:'application/json'});
+ const url=URL.createObjectURL(blob),a=document.createElement('a');
+ a.href=url;a.download='orev-sauvegarde.json';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+ $('historyMessage').textContent='Sauvegarde préparée. Vérifie tes téléchargements.';
+});
+$('importButton').addEventListener('click',()=>$('importFile').click());
+$('importFile').addEventListener('change',async e=>{
+ const file=e.target.files&&e.target.files[0];if(!file)return;
+ try{
+  const data=JSON.parse(await file.text());
+  const arr=Array.isArray(data)?data:data.history;
+  if(!Array.isArray(arr)||!arr.every(n=>Number.isInteger(n)&&n>=0&&n<=36))throw new Error('format');
+  if(!confirm(`Importer ${arr.length} résultats ? Ils seront ajoutés à l’historique actuel.`))return;
+  history=history.concat(arr).slice(-100000);persist();refreshAll();$('historyMessage').textContent=`${fmt(arr.length)} résultats importés.`;
+ }catch(err){$('historyMessage').textContent='Fichier invalide : sélectionne une sauvegarde OREV au format JSON.';}
+ finally{e.target.value='';}
+});
+function randomIndex(){
+ if(window.crypto&&crypto.getRandomValues){
+  const range=0x100000000,limit=Math.floor(range/37)*37;
+  const buf=new Uint32Array(1);let x;
+  do{crypto.getRandomValues(buf);x=buf[0];}while(x>=limit);
+  return x%37;
+ }
+ return Math.floor(Math.random()*37);
+}
+$('runSimulation').addEventListener('click',()=>{
+ const n=Number($('sampleSize').value),c=Array(37).fill(0);
+ const button=$('runSimulation');button.disabled=true;button.textContent='Simulation…';
+ // Yield once so the interface can display the running state.
+ setTimeout(()=>{
+  for(let i=0;i<n;i++)c[randomIndex()]++;
+  simCounts=c;renderSimulation();button.disabled=false;button.textContent='Relancer la simulation';
+ },30);
+});
+$('clearSimulation').addEventListener('click',()=>{
+ simCounts=null;$('simTotal').textContent='0';$('simTop').textContent='—';
+ $('simSummary').textContent='Simulation effacée.';$('simColorChart').innerHTML='';$('simNumberChart').innerHTML='';
+ $('runSimulation').textContent='Lancer la simulation';
+});
+function renderSimulation(){
+ if(!simCounts)return;
+ const total=simCounts.reduce((a,b)=>a+b,0),cc=colorCounts(simCounts),max=Math.max(...simCounts),top=simCounts.indexOf(max);
+ $('simTotal').textContent=fmt(total);$('simTop').textContent=`${top} (${fmt(max)})`;
+ $('simSummary').textContent=`Rouges : ${fmt(cc[0])} (${pct(cc[0],total)}) · Noirs : ${fmt(cc[1])} (${pct(cc[1],total)}) · Zéros : ${fmt(cc[2])} (${pct(cc[2],total)}).`;
+ chartRows('simColorChart',['Rouge','Noir','Zéro'],cc,total);
+ chartRows('simNumberChart',Array.from({length:37},(_,i)=>String(i)),simCounts,total);
+}
+function updateProbability(){
+ const s=$('eventSelect'),n=Number(s.value);
+ $('probabilityResult').textContent=`${s.options[s.selectedIndex].text} : ${n} issue(s) sur 37, soit ${pct(n,37)}.`;
+}
+$('eventSelect').addEventListener('change',updateProbability);
+window.addEventListener('resize',()=>{if($('wheel').classList.contains('active'))renderWheel();});
+safeLoad();refreshAll();updateProbability();
+if('serviceWorker' in navigator && (location.protocol==='https:' || location.hostname==='localhost')){
+ window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));
+}
+</script>
+</body>
+</html>
